@@ -1,0 +1,25 @@
+HIGHLAND REALTY GROUP - Website
+============================================
+
+TO VIEW IT
+1. Unzip this folder (right-click the zip > "Extract All" on Windows, or double-click it on a Mac).
+2. Open the "Highland Website" folder and double-click "Open Me - Highland Website.html".
+3. It opens in your web browser (Chrome works best). Make sure you are connected to the internet -
+   the videos, fonts and animations load online.
+4. The quick form in the hero opens the "Get investment options" pop-up (it also opens by itself after ~12 seconds or halfway down the page) - try it all the way
+   to the Investor Pass (in demo mode any 6-digit code works). Tap "Keep browsing", click outside it,
+   scroll, or (on phones) swipe it down to tuck it away - you can reopen it any time. Try it on your phone too (see "To share it" below).
+
+TO SHARE IT WITH THE CLIENT (get a real web link, free, about 1 minute)
+1. Go to  https://app.netlify.com/drop  in Chrome (sign up free with Google if asked).
+2. Drag the unzipped "Highland Website" folder onto that page.
+3. Netlify gives you a link like  https://something.netlify.app  - send that link to the client.
+   It opens the website directly and works on phones and laptops.
+
+BEFORE IT GOES LIVE FOR REAL ADS
+- A red "SAMPLE DATA" tag shows at the bottom: prices, offers, unit counts, event dates and
+  company numbers are placeholders. A developer edits these in one place (the CONFIG section
+  inside the file) and then switches the tag off.
+- The Investor Pass experience (the lead form) currently runs in demo mode (it doesn't send anywhere yet). A developer
+  connects it to the client's CRM / email and an SMS-code provider.
+- The WhatsApp and phone numbers are placeholders too.
