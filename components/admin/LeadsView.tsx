@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { Confirm, Icon, StatusPill } from './ui';
+import { type Channel, ContactActions } from './ContactActions';
 import { type Lead, type LeadStatus, STATUSES, STATUS_LABEL } from './types';
 import { ago, countryName, digitsOf, download, flag, fullDate, initials, toCsv } from './utils';
 
@@ -26,6 +27,7 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
   const [open, setOpen] = useState<string | null>(null);
   const [page, setPage] = useState(0);
   const [confirm, setConfirm] = useState<string[] | null>(null);
+  const [filters, setFilters] = useState(false);
 
   useEffect(() => { const h = location.hash.match(/lead=([\w]+)/); if (h) setOpen(h[1]); }, []);
 
@@ -57,6 +59,13 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
   const toggle = (id: string) => setSel((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
   const exportCsv = (list: Lead[]) => { download(`highland-leads-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(list)); notify(`Exported ${list.length} lead${list.length === 1 ? '' : 's'}`); };
 
+  /* Reaching out to a brand-new lead moves it to "Contacted" so the pipeline stays honest. */
+  const contacted = (l: Lead, c: Channel) => {
+    if (l.status !== 'new') return;
+    onPatch([l.id], { status: 'contacted' });
+    notify(`${l.name.split(' ')[0]} marked as contacted${c === 'call' ? '' : ' (' + c + ')'}`);
+  };
+
   const doDelete = async () => {
     if (!confirm) return;
     await onDelete(confirm); setSel(new Set()); setConfirm(null); if (open && confirm.includes(open)) setOpen(null);
@@ -64,8 +73,9 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
 
   return (
     <div className="ad-leads">
-      <div className="ad-toolbar">
+      <div className={`ad-toolbar${filters ? ' open' : ''}`}>
         <label className="ad-search"><Icon name="search" size={16} /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, phone, notes…" aria-label="Search leads" /></label>
+        <button className={`ad-btn ad-filterbtn${filters ? ' on' : ''}`} onClick={() => setFilters(!filters)} aria-expanded={filters} aria-label="Filters"><Icon name="menu" size={16} /><span>Filters</span></button>
         <select value={source} onChange={(e) => setSource(e.target.value)} aria-label="Filter by source"><option value="all">All sources</option>{sources.map((s) => <option key={s}>{s}</option>)}</select>
         <select value={range} onChange={(e) => setRange(e.target.value as typeof range)} aria-label="Filter by date"><option value="all">All time</option><option value="1">Last 24 hours</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select>
         <select value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="name">Name A–Z</option></select>
@@ -110,7 +120,7 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
               <table className="ad-table">
                 <thead><tr>
                   <th className="c"><input type="checkbox" checked={allSel} onChange={() => setSel((s) => { const n = new Set(s); visible.forEach((l) => (allSel ? n.delete(l.id) : n.add(l.id))); return n; })} aria-label="Select all on page" /></th>
-                  <th>Lead</th><th>Phone</th><th>Source</th><th>Status</th><th>Received</th><th className="c" aria-label="Starred" />
+                  <th>Lead</th><th>Phone</th><th>Contact</th><th>Source</th><th>Status</th><th>Received</th><th className="c" aria-label="Starred" />
                 </tr></thead>
                 <tbody>
                   {visible.map((l) => (
@@ -118,6 +128,7 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
                       <td className="c" onClick={(e) => e.stopPropagation()}><input type="checkbox" checked={sel.has(l.id)} onChange={() => toggle(l.id)} aria-label={`Select ${l.name}`} /></td>
                       <td><div className="ad-who"><span className="ad-av">{initials(l.name)}</span><div><b>{l.name}{l.submissions > 1 && <em title="Submitted again">×{l.submissions}</em>}</b><small>{l.email}</small></div></div></td>
                       <td className="ad-mono">{l.phone}</td>
+                      <td><ContactActions lead={l} onContact={contacted} /></td>
                       <td><span className="ad-src">{l.source}</span></td>
                       <td onClick={(e) => e.stopPropagation()}>
                         <select className={`ad-statsel ad-pill--${l.status}`} value={l.status} onChange={(e) => onPatch([l.id], { status: e.target.value as LeadStatus })} aria-label={`Status for ${l.name}`}>
@@ -131,6 +142,19 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
                 </tbody>
               </table>
             </div>
+            <ul className="ad-cards">
+              {visible.map((l) => (
+                <li key={l.id} className="ad-lcard" onClick={() => setOpen(l.id)}>
+                  <div className="ad-lcard__top">
+                    <span className="ad-av">{initials(l.name)}</span>
+                    <div><b>{l.name}</b><small>{ago(l.createdAt)} · {l.source}</small></div>
+                    <button className={`ad-star${l.starred ? ' on' : ''}`} onClick={(e) => { e.stopPropagation(); onPatch([l.id], { starred: !l.starred }); }} aria-label={l.starred ? 'Unstar' : 'Star'} aria-pressed={l.starred}><Icon name="star" size={18} /></button>
+                  </div>
+                  <div className="ad-lcard__info"><span className="ad-mono">{l.phone}</span><span>{l.email}</span></div>
+                  <div className="ad-lcard__foot"><StatusPill status={l.status} /><ContactActions lead={l} onContact={contacted} channels={['call', 'whatsapp', 'sms', 'email']} /></div>
+                </li>
+              ))}
+            </ul>
             <div className="ad-pager"><span>{rows.length} lead{rows.length === 1 ? '' : 's'}</span>
               <div><button className="ad-btn" disabled={page === 0} onClick={() => setPage(page - 1)}>Prev</button><span>Page {page + 1} of {pages}</span><button className="ad-btn" disabled={page >= pages - 1} onClick={() => setPage(page + 1)}>Next</button></div></div>
           </>
@@ -146,6 +170,7 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
                       <article key={l.id} className="ad-kcard" draggable onDragStart={(e) => e.dataTransfer.setData('text/plain', l.id)} onClick={() => setOpen(l.id)}>
                         <div className="ad-who"><span className="ad-av">{initials(l.name)}</span><div><b>{l.name}</b><small>{ago(l.createdAt)}</small></div>{l.starred && <span className="ad-star on"><Icon name="star" size={14} /></span>}</div>
                         <p>{l.phone}</p><p className="mut">{l.email}</p>
+                        <ContactActions lead={l} onContact={contacted} />
                       </article>
                     ))}
                     {!col.length && <p className="ad-empty">Drop leads here</p>}
@@ -156,20 +181,19 @@ export default function LeadsView({ leads, loading, onPatch, onDelete, onRefresh
           </div>
         )}
 
-      {current && <Drawer lead={current} onClose={() => setOpen(null)} onPatch={onPatch} onDelete={() => setConfirm([current.id])} notify={notify} />}
+      {current && <Drawer lead={current} onContact={contacted} onClose={() => setOpen(null)} onPatch={onPatch} onDelete={() => setConfirm([current.id])} notify={notify} />}
       {confirm && <Confirm title={`Delete ${confirm.length} lead${confirm.length === 1 ? '' : 's'}?`} text="This permanently removes the lead and its notes. This cannot be undone." action="Delete" onYes={doDelete} onNo={() => setConfirm(null)} />}
     </div>
   );
 }
 
-function Drawer({ lead, onClose, onPatch, onDelete, notify }: { lead: Lead; onClose: () => void; onPatch: Props['onPatch']; onDelete: () => void; notify: (m: string) => void }) {
+function Drawer({ lead, onContact, onClose, onPatch, onDelete, notify }: { lead: Lead; onContact: (l: Lead, c: Channel) => void; onClose: () => void; onPatch: Props['onPatch']; onDelete: () => void; notify: (m: string) => void }) {
   const [notes, setNotes] = useState(lead.notes);
   const [saved, setSaved] = useState(false);
   useEffect(() => { setNotes(lead.notes); setSaved(false); }, [lead.id, lead.notes]);
   useEffect(() => { const k = (e: KeyboardEvent) => e.key === 'Escape' && onClose(); addEventListener('keydown', k); return () => removeEventListener('keydown', k); }, [onClose]);
   const saveNotes = async () => { if (notes === lead.notes) return; await onPatch([lead.id], { notes }); setSaved(true); setTimeout(() => setSaved(false), 1800); };
   const copy = (t: string) => { navigator.clipboard?.writeText(t); notify('Copied'); };
-  const wa = `https://wa.me/${digitsOf(lead.phone)}?text=${encodeURIComponent(`Hello ${lead.name.split(' ')[0]}, this is Highland Capitals following up on your enquiry about commercial investment in Dubai.`)}`;
   const utm = Object.entries(lead.utm);
   return (
     <>
@@ -182,11 +206,7 @@ function Drawer({ lead, onClose, onPatch, onDelete, notify }: { lead: Lead; onCl
           <button className="ad-x" onClick={onClose} aria-label="Close"><Icon name="close" /></button>
         </header>
         <div className="ad-drawer__body">
-          <div className="ad-actions">
-            <a className="ad-btn ad-btn--gold" href={`tel:${lead.phone}`}><Icon name="phone" size={16} />Call</a>
-            <a className="ad-btn" href={wa} target="_blank" rel="noopener">WhatsApp</a>
-            <a className="ad-btn" href={`mailto:${lead.email}`}><Icon name="mail" size={16} />Email</a>
-          </div>
+          <ContactActions lead={lead} onContact={onContact} variant="full" channels={['call', 'whatsapp', 'sms', 'email']} />
 
           <h4>Pipeline stage</h4>
           <div className="ad-stages">{STATUSES.map((s) => <button key={s} className={`ad-pill ad-pill--${s}${lead.status === s ? ' on' : ''}`} onClick={() => onPatch([lead.id], { status: s })}>{lead.status === s && <Icon name="check" size={12} />}{STATUS_LABEL[s]}</button>)}</div>

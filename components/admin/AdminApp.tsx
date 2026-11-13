@@ -26,6 +26,7 @@ export default function AdminApp() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState('');
   const [err, setErr] = useState('');
+  const [pull, setPull] = useState(0);
   const tt = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const notify = useCallback((m: string) => { setToast(m); clearTimeout(tt.current); tt.current = setTimeout(() => setToast(''), 2400); }, []);
@@ -48,6 +49,25 @@ export default function AdminApp() {
     const t = setInterval(() => { if (!document.hidden) { loadLeads(); loadData(days); } }, 30000);
     return () => clearInterval(t);
   }, [days, loadLeads, loadData]);
+
+  const refreshAll = useCallback(async () => { await Promise.all([loadLeads(), loadData(days)]); notify('Refreshed'); }, [loadLeads, loadData, days, notify]);
+
+  // Pull-to-refresh on touch screens (only when scrolled to the very top and no sheet is open).
+  const refreshRef = useRef(refreshAll);
+  refreshRef.current = refreshAll;
+  useEffect(() => {
+    let y0 = 0, on = false, dy = 0;
+    const blocked = () => !!document.querySelector('.ad-drawer, .ad-modal');
+    const ts = (e: TouchEvent) => { if (window.scrollY <= 0 && !blocked()) { y0 = e.touches[0].clientY; on = true; dy = 0; } };
+    const tm = (e: TouchEvent) => {
+      if (!on) return;
+      dy = e.touches[0].clientY - y0;
+      if (dy > 0 && window.scrollY <= 0) setPull(Math.min(dy * 0.5, 84)); else if (dy < -4) { on = false; setPull(0); }
+    };
+    const te = () => { if (on && dy * 0.5 > 60) refreshRef.current(); on = false; setPull(0); };
+    addEventListener('touchstart', ts, { passive: true }); addEventListener('touchmove', tm, { passive: true }); addEventListener('touchend', te); addEventListener('touchcancel', te);
+    return () => { removeEventListener('touchstart', ts); removeEventListener('touchmove', tm); removeEventListener('touchend', te); removeEventListener('touchcancel', te); };
+  }, []);
 
   const go = useCallback((t: Tab, lead?: string) => { setTab(t); history.replaceState(null, '', `#${t}${lead ? `&lead=${lead}` : ''}`); window.scrollTo({ top: 0 }); if (lead) setTimeout(() => window.dispatchEvent(new HashChangeEvent('hashchange')), 0); }, []);
 
@@ -87,7 +107,15 @@ export default function AdminApp() {
 
       <div className="ad-main">
         <header className="ad-top">
-          <div><h1>{TITLES[tab]}</h1><p>{new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</p></div>
+          <div className="ad-top__title">
+            <svg className="ad-top__mark" aria-hidden="true" width="26" height="26"><use href="#i-mark" /></svg>
+            <div><h1>{TITLES[tab]}</h1><p>{new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</p></div>
+          </div>
+          <div className="ad-top__tools">
+            <button onClick={refreshAll} aria-label="Refresh"><Icon name="refresh" size={19} /></button>
+            <a href="/" target="_blank" rel="noopener" aria-label="View website"><Icon name="external" size={19} /></a>
+            <button onClick={logout} aria-label="Sign out"><Icon name="logout" size={19} /></button>
+          </div>
           {(tab === 'overview' || tab === 'traffic') && (
             <div className="ad-range" role="group" aria-label="Date range">{[7, 14, 30, 90].map((d) => <button key={d} className={days === d ? 'on' : ''} onClick={() => setDays(d)}>{d}d</button>)}</div>
           )}
@@ -107,6 +135,7 @@ export default function AdminApp() {
       <nav className="ad-bottom" aria-label="Admin (mobile)">
         {TABS.map((t) => <button key={t.id} className={tab === t.id ? 'on' : ''} onClick={() => go(t.id)}><Icon name={t.icon} /><span>{t.label}</span>{t.id === 'leads' && newCount > 0 && <em>{newCount}</em>}</button>)}
       </nav>
+      <div className={`ad-ptr${pull > 0 ? ' on' : ''}`} style={{ transform: `translate(-50%, ${pull - 44}px)`, opacity: Math.min(pull / 60, 1) }} aria-hidden="true"><Icon name="refresh" size={18} /></div>
       <Toast msg={toast} />
     </div>
   );
