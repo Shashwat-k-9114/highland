@@ -24,8 +24,8 @@ export default function OverviewView({ leads, data, days, goto }: Props) {
   const won = leads.filter((l) => l.status === 'won').length;
 
   const t = f?.totals, p = f?.prev;
-  const conv = t && t.uv ? (leadsInRange / t.uv) * 100 : 0;
-  const convPrev = p && p.uv ? (leadsPrev / p.uv) * 100 : 0;
+  const conv = t && t.uv ? Math.min((leadsInRange / t.uv) * 100, 100) : 0;
+  const convPrev = p && p.uv ? Math.min((leadsPrev / p.uv) * 100, 100) : 0;
 
   const funnel = t ? [
     { k: 'Visitors', v: t.uv, hint: 'unique people' },

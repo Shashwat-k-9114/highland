@@ -36,7 +36,10 @@ export default function AdminApp() {
   useEffect(() => {
     const h = location.hash.replace('#', '').split('&')[0] as Tab;
     if (TABS.some((t) => t.id === h)) setTab(h);
+    const onHash = () => { const x = location.hash.replace('#', '').split('&')[0] as Tab; if (TABS.some((t) => t.id === x)) setTab(x); };
+    window.addEventListener('hashchange', onHash);
     Promise.all([loadLeads(), api<Status>('/api/admin/status').then(setStatus).catch(() => {})]).finally(() => setLoading(false));
+    return () => window.removeEventListener('hashchange', onHash);
   }, [loadLeads]);
   useEffect(() => { loadData(days); }, [days, loadData]);
 

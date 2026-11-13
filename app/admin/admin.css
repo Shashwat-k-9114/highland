@@ -164,10 +164,10 @@
 .ad-skel--chart{height:240px;border-radius:16px;background:linear-gradient(90deg,var(--paper-3),var(--paper),var(--paper-3));background-size:200% 100%;animation:sk 1.4s infinite}
 @keyframes sk{to{background-position:-200% 0}}
 .ad-board{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:12px;overflow-x:auto;padding-bottom:10px}
-.ad-col{min-height:300px;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}
+.ad-col{min-width:0;min-height:300px;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}
 .ad-col h4{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.ad-col h4 em{font-style:normal;font-size:12px;color:var(--ink-3)}
-.ad-col>div{display:grid;gap:8px;align-content:start}
-.ad-kcard{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper-2);cursor:grab;transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
+.ad-col>div{min-width:0;display:grid;gap:8px;align-content:start}
+.ad-kcard{min-width:0;overflow:hidden;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper-2);cursor:grab;transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
 .ad-kcard:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 14px 26px -18px rgba(70,48,15,.5)}.ad-kcard:active{cursor:grabbing}
 .ad-kcard .ad-av{width:32px;height:32px;font-size:12px}.ad-kcard .ad-who{margin-bottom:8px}.ad-kcard .ad-who .ad-star{margin-left:auto}
 .ad-kcard p{font-size:13px}.ad-kcard .mut{color:var(--ink-3);font-size:12px;overflow:hidden;text-overflow:ellipsis}
