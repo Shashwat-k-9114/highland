@@ -24,6 +24,9 @@ export type Lead = {
   city: string;
   device: string;
   submissions: number;
+  intent?: string;
+  company?: string;
+  investorCity?: string;
 };
 
 const KEY = 'leads';
@@ -52,6 +55,7 @@ export async function createLead(input: LeadInput, ctx: { country: string; city:
     status: 'new', starred: false, notes: '',
     source: input.source || 'Website', passNo: input.passNo || '', page: input.page || '', referrer: input.referrer || '',
     utm: input.utm || {}, country: ctx.country, city: ctx.city, device: ctx.device, submissions: 1,
+    intent: input.intent || '', company: input.company || '', investorCity: input.investorCity || '',
   };
   await store.hset(KEY, lead.id, JSON.stringify(lead));
   return { lead, duplicate: false };

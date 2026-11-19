@@ -13,8 +13,8 @@ export function GET() {
       background_color: '#14110D',
       theme_color: '#14110D',
       icons: [
-        { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
-        { src: '/apple-icon', sizes: '180x180', type: 'image/png', purpose: 'any' },
+        { src: '/icon.png', sizes: '256x256', type: 'image/png', purpose: 'any' },
+        { src: '/apple-icon.png', sizes: '180x180', type: 'image/png', purpose: 'any' },
       ],
     },
     { headers: { 'Content-Type': 'application/manifest+json', 'Cache-Control': 'public, max-age=86400' } },

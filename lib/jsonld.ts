@@ -15,7 +15,7 @@ export function homeJsonLd() {
         name: SITE.name,
         legalName: SITE.legalName,
         url: SITE.url,
-        logo: { '@type': 'ImageObject', url: `${SITE.url}/apple-icon`, width: 180, height: 180 },
+        logo: { '@type': 'ImageObject', url: `${SITE.url}/logo.png`, width: 840, height: 405 },
         image: `${SITE.url}/opengraph-image`,
         description: SITE.description,
         slogan: "Dubai 2033. Invest in What's Next.",

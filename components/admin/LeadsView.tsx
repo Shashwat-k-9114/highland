@@ -225,6 +225,9 @@ function Drawer({ lead, onContact, onClose, onPatch, onDelete, notify }: { lead:
           <h4>Where they came from</h4>
           <dl className="ad-dl">
             <div><dt>Source</dt><dd>{lead.source}</dd></div>
+            {lead.intent && <div><dt>Interested in</dt><dd>{lead.intent}</dd></div>}
+            {lead.company && <div><dt>Company</dt><dd>{lead.company}</dd></div>}
+            {lead.investorCity && <div><dt>Investor city</dt><dd>{lead.investorCity}</dd></div>}
             <div><dt>Pass no.</dt><dd className="ad-mono">{lead.passNo || '·'}</dd></div>
             {lead.submissions > 1 && <div><dt>Submissions</dt><dd>{lead.submissions} (they enquired again)</dd></div>}
             <div><dt>Page</dt><dd className="ad-trunc" title={lead.page}>{/^https?:\/\//.test(lead.page) ?<a href={lead.page} target="_blank" rel="noopener">{lead.page.replace(/^https?:\/\//, '')}<Icon name="external" size={12} /></a> : '·'}</dd></div>

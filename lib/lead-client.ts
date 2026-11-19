@@ -1,6 +1,6 @@
 import { sessionId, track, utmParams, visitorId } from './track';
 
-export type LeadForm = { name: string; cc: string; phone: string; email: string; consent: boolean };
+export type LeadForm = { name: string; cc: string; phone: string; email: string; consent: boolean; intent?: string; company?: string; investorCity?: string };
 
 export const newPassNo = () => String(Math.floor(100000 + Math.random() * 900000));
 
@@ -10,7 +10,7 @@ export async function submitLead(f: LeadForm, source: string, passNo: string, hp
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      name: f.name.trim(), email: f.email.trim(), phone: f.cc + f.phone.replace(/\D/g, ''), consent: f.consent,
+      name: f.name.trim(), email: f.email.trim(), phone: f.cc + f.phone.replace(/\D/g, ''), consent: f.consent, intent: f.intent, company: f.company?.trim(), investorCity: f.investorCity,
       passNo: 'HC-' + passNo, source, page: location.href, referrer: document.referrer, utm: utmParams(), vid: visitorId(), sid: sessionId(), hp,
     }),
   });

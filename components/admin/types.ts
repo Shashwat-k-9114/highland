@@ -6,7 +6,7 @@ export type Lead = {
   id: string; createdAt: string; updatedAt: string;
   name: string; email: string; phone: string;
   status: LeadStatus; starred: boolean; notes: string;
-  source: string; passNo: string; page: string; referrer: string;
+  source: string; intent?: string; company?: string; investorCity?: string; passNo: string; page: string; referrer: string;
   utm: Record<string, string>; country: string; city: string; device: string; submissions: number;
 };
 

@@ -6,7 +6,7 @@ import HeroReel from '@/components/HeroReel';
 import Photo from '@/components/Photo';
 import VideoBg from '@/components/VideoBg';
 import { homeJsonLd, jsonLdString } from '@/lib/jsonld';
-import { BAND_VIDEO, COMPONENTS, FAQS, INDIA_ITEMS, LOCATIONS, PHOTOS, PLAN_ITEMS, STATS, telLink, unsplash, waLink } from '@/lib/site';
+import { BAND_VIDEO, COMPONENTS, FAQS, INDIA_ITEMS, JA_D33_PILLARS, JA_INFRA_NEEDS, JA_LOCATION_FACTS, JA_MOBILITY, JA_RENT_GROWTH, LOCATIONS, PHOTOS, PLAN_ITEMS, STATS, telLink, unsplash, waLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -109,6 +109,76 @@ export default function Home() {
         </div>
       </section>
 
+      {/* JEBEL ALI: INFRASTRUCTURE CASE */}
+      <section className="pad wrap section-alt" id="jebel-ali" aria-labelledby="ja-title">
+        <div className="head-row">
+          <div><span className="tag reveal">Highland Capitals · Jebel Ali</span>
+            <h2 className="d2" id="ja-title" style={{ marginTop: 20 }}><span className="line"><span>Dubai is investing in its</span></span><span className="line"><span className="c">next decade of growth.</span></span></h2></div>
+          <p className="lede reveal">Economic growth needs physical infrastructure. Dubai&apos;s non-oil economy is expanding across trade, logistics, construction, manufacturing and services.</p>
+        </div>
+        <div className="ja-stats">
+          <div className="ja-stat reveal"><div className="ja-stat__n"><small>AED</small>99.5<sup>BN</sup></div><p>2026 Dubai government budget.</p></div>
+          <div className="ja-stat reveal"><div className="ja-stat__n">48<sup>%</sup></div><p>of 2026 government expenditure is allocated to infrastructure, continuing Dubai&apos;s investment in the physical foundations of its future economy.</p></div>
+          <div className="ja-stat reveal"><div className="ja-stat__n">77.5<sup>%</sup></div><p>of UAE real GDP came from non-oil activities in H1 2025. Non-oil GDP grew 5.7% year-on-year. A UAE-wide statistic, not Dubai-specific.</p></div>
+        </div>
+        <h3 className="ja-sub reveal">As these sectors grow, they require more than office space.</h3>
+        <div className="ja-cards ja-cards--4">
+          {JA_INFRA_NEEDS.map((c, i) => <div className="ja-card reveal" key={c.k}><i>0{i + 1}</i><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+        <p className="lede reveal" style={{ marginTop: 34, maxWidth: 720 }}>That is where income-generating industrial real estate comes in.</p>
+        <p className="small reveal" style={{ marginTop: 18 }}>Sources: Government of Dubai 2026 budget; UAE Federal Competitiveness and Statistics Centre.</p>
+      </section>
+
+      {/* THE OPPORTUNITY: MOBILITY */}
+      <section className="pad wrap section-light" id="mobility" aria-labelledby="mob-title">
+        <div className="head-row">
+          <div><span className="tag reveal">The Opportunity</span>
+            <h2 className="d2" id="mob-title" style={{ marginTop: 20 }}><span className="line"><span>Mobility infrastructure is</span></span><span className="line"><span className="c">part of the economic conversation.</span></span></h2></div>
+          <p className="lede reveal">As trade, transportation and industrial activity evolve, the infrastructure supporting the movement of goods and people also needs to evolve. The opportunity extends beyond charging points to the supporting ecosystem around mobility.</p>
+        </div>
+        <div className="ja-cards ja-cards--4">
+          {JA_MOBILITY.map((c) => <div className="ja-card reveal" key={c.k}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={c.icon} /></svg><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+      </section>
+
+      {/* D33 CONNECTION */}
+      <section className="pad wrap section-alt" id="d33" aria-labelledby="d33-title">
+        <div className="head-row">
+          <div><span className="tag reveal">Dubai Economic Agenda 2033</span>
+            <h2 className="d2" id="d33-title" style={{ marginTop: 20 }}><span className="line"><span>Dubai is planning its next</span></span><span className="line"><span className="c">decade of economic growth.</span></span></h2></div>
+          <p className="lede reveal">The D33 agenda aims to double the size of Dubai&apos;s economy by 2033 and strengthen its position among the world&apos;s leading global cities. Its priorities include expanding foreign trade, strengthening logistics, developing sustainable manufacturing and attracting investment.</p>
+        </div>
+        <div className="ja-cards ja-cards--4">
+          {JA_D33_PILLARS.map((c, i) => <div className="ja-card reveal" key={c.k}><i>0{i + 1}</i><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+        <div className="ja-stat ja-stat--wide reveal"><div className="ja-stat__n"><small>AED</small>25.6<sup>trillion</sup></div><p>D33 target for foreign trade in goods and services over the next decade. An official D33 target, not a forecast of project revenue.</p></div>
+      </section>
+
+      {/* JEBEL ALI LOCATION + MARKET */}
+      <section className="pad wrap section-light" id="jebel-location" aria-labelledby="jl-title">
+        <div className="head-row">
+          <div><span className="tag reveal">Key differentiator</span>
+            <h2 className="d2" id="jl-title" style={{ marginTop: 20 }}><span className="line"><span>Location is not just an advantage.</span></span><span className="line"><span className="c">It is part of the investment case.</span></span></h2></div>
+        </div>
+        <div className="ja-cards ja-cards--3">
+          {JA_LOCATION_FACTS.map((c) => <div className="ja-card reveal" key={c.k}><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+        <div className="ja-rent reveal">
+          <span className="tag">Knight Frank · 2025 year-on-year industrial rental growth</span>
+          <h3 className="d3">An established industrial market. Growing rental demand. Limited quality supply.</h3>
+          <ul>
+            {JA_RENT_GROWTH.map((r) => <li key={r.k}><span>{r.k}</span><b style={{ width: `${(r.v / 39) * 100}%` }}><em>+{r.v}%</em></b></li>)}
+          </ul>
+          <p className="small">Source: Knight Frank, UAE Industrial and Logistics Market Review 2025-26. Reported rental growth across selected Dubai industrial markets, not capital appreciation, investment yields or returns.</p>
+        </div>
+        <div className="ja-phase reveal">
+          <div><span className="tag">Phase 1 · Initial development</span>
+            <h3 className="d3">Be part of the first development phase.</h3>
+            <p className="lede">An opportunity to evaluate participation at the initial stage of Highland Capitals&apos; Jebel Ali development. Phase 1 allocation, entry pricing, development stage and timeline are shared in the investment brief.</p></div>
+          <Cta>Request the Phase 1 investment brief</Cta>
+        </div>
+      </section>
+
       {/* LOCATIONS */}
       <section className="pad wrap section-light" id="locations" aria-labelledby="loc-title">
         <div className="head-row">
@@ -171,10 +241,10 @@ export default function Home() {
         <div className="panel contact__card reveal">
           <aside className="contact__aside on-dark">
             <Photo id={PHOTOS.contact} alt="" sizes="(max-width: 980px) 100vw, 45vw" par />
-            <div><span className="tag">( 07 ) &nbsp;Contact</span>
+            <div><span className="tag">( 07 ) &nbsp;Take the next step</span>
               <h2 className="d2" id="contact-title" style={{ marginTop: 20, fontSize: 'clamp(36px,3.8vw,62px)' }}>Find Your Next Commercial Investment <span className="c">in Dubai.</span></h2>
               <p className="contact__urgency"><i className="pulse" />Project information sent within one business day</p>
-              <p className="lede" style={{ marginTop: 14 }}>Tell us what you&apos;re looking for. Our investment advisory team will help you explore suitable opportunities.</p></div>
+              <p className="lede" style={{ marginTop: 14 }}>Explore the Highland Capitals Jebel Ali project and request information relevant to your requirements.</p></div>
             <ul className="contact__list"><li>Project specifications and investment options</li><li>Payment schedule and development timeline</li><li>Guidance on RBI/FEMA remittance for Indian investors</li><li>Strict discretion. Your details are never shared.</li></ul>
             <div className="contact__quick"><a href={waLink()} className="btn btn--glass btn--sm" data-wa target="_blank" rel="noopener"><svg className="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa" /></svg>WhatsApp</a><a href={telLink()} className="btn btn--glass btn--sm" data-call>Call us</a></div>
           </aside>

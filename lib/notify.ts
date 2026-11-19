@@ -14,7 +14,7 @@ export async function notifyLead(lead: Lead) {
       body: JSON.stringify({
         from: process.env.LEAD_FROM_EMAIL || 'Highland Capitals <onboarding@resend.dev>',
         to: to.split(',').map((s) => s.trim()), subject: `New lead: ${lead.name}`,
-        html: `<h2>New Highland Capitals lead</h2><p><b>${esc(lead.name)}</b><br>${esc(lead.email)}<br>${esc(lead.phone)}</p><p>Source: ${esc(lead.source)}<br>Pass: ${esc(lead.passNo)}</p>`,
+        html: `<h2>New Highland Capitals lead</h2><p><b>${esc(lead.name)}</b><br>${esc(lead.email)}<br>${esc(lead.phone)}</p><p>${lead.intent ? `Interest: ${esc(lead.intent)}<br>` : ''}${lead.company ? `Company: ${esc(lead.company)}<br>` : ''}${lead.investorCity ? `City: ${esc(lead.investorCity)}<br>` : ''}Source: ${esc(lead.source)}<br>Pass: ${esc(lead.passNo)}</p>`,
       }),
     }).catch(() => {}));
   }

@@ -51,6 +51,7 @@ export const NAV = [
   { href: '#top', spy: 'top', label: 'Home' },
   { href: '#about', spy: 'about', label: 'About Us' },
   { href: '#opportunities', spy: 'opportunities', label: 'Investment Opportunities' },
+  { href: '#jebel-ali', spy: 'jebel-ali', label: 'Jebel Ali' },
   { href: '#locations', spy: 'locations', label: 'Locations' },
   { href: '#contact', spy: 'contact', label: 'Contact' },
 ] as const;
@@ -132,3 +133,51 @@ export const HERO_REEL = {
   mobile: ['/videos/hero-m1', '/videos/hero-m2'],
 };
 export const BAND_VIDEO = '/videos/band';
+
+/* ---------- Jebel Ali project brief (Highland Dubai X JAI) ---------- */
+export const JA_INFRA_NEEDS = [
+  { k: 'Industrial facilities', d: 'Spaces supporting manufacturing and operations.' },
+  { k: 'Logistics infrastructure', d: 'Warehousing, distribution and supply chains.' },
+  { k: 'Commercial assets', d: 'Properties supporting business activity.' },
+  { k: 'Emerging infrastructure', d: 'EV charging and future mobility facilities.' },
+];
+
+export const JA_MOBILITY = [
+  { k: 'EV Charging', d: 'Charging infrastructure for electric mobility.', icon: 'M13 2 4 14h7l-1 8 9-12h-7z' },
+  { k: 'Commercial Mobility', d: 'Facilities supporting commercial vehicles and fleets.', icon: 'M2 7h12v9H2zM14 10h4l4 3v3h-8zM6 19h.01M18 19h.01' },
+  { k: 'Rest & Accommodation', d: 'Short-stay facilities for drivers and travellers.', icon: 'M3 18v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 15h18M3 21v-3M21 21v-3M7 9V6h10v3' },
+  { k: 'Food & Convenience', d: 'Restaurants and supporting services.', icon: 'M6 3v8a2 2 0 0 0 2 2v8M10 3v8M6 7h4M17 3c-2 2-3 5-3 8h3v10' },
+];
+
+export const JA_D33_PILLARS = [
+  { k: 'Global Trade', d: 'Expand international trade and connect with more global markets.' },
+  { k: 'Logistics & Industry', d: 'Strengthen logistics capabilities and industrial competitiveness.' },
+  { k: 'Sustainable Growth', d: 'Support sustainable manufacturing and economic development.' },
+  { k: 'Innovation & Technology', d: 'Enable new technologies and future-oriented business sectors.' },
+];
+
+export const JA_LOCATION_FACTS = [
+  { k: 'Highland Capitals project', d: 'In the Jebel Ali industrial corridor. Exact site to be confirmed.' },
+  { k: 'Jebel Ali Port', d: 'International maritime trade.' },
+  { k: 'JAFZA', d: 'Established free zone and business ecosystem.' },
+  { k: "Al Maktoum Int'l Airport (DWC)", d: 'Long-term aviation and cargo infrastructure expansion.' },
+  { k: 'Dubai South', d: 'Logistics and aviation-led district.' },
+  { k: 'E11 / E311', d: 'Regional road connectivity.' },
+];
+
+/** Knight Frank, UAE Industrial and Logistics Market Review 2025-26: 2025 year-on-year rental growth. */
+export const JA_RENT_GROWTH = [
+  { k: 'Jebel Ali Grade B', v: 39 },
+  { k: 'Dubai Industrial City', v: 32 },
+  { k: 'Dubai South', v: 25 },
+  { k: 'JAFZA Grade A', v: 22 },
+];
+
+export const INTENTS = [
+  'Request investment details',
+  'Schedule a virtual consultation',
+  'Plan a Dubai site visit',
+  'Explore business partnership opportunities',
+] as const;
+
+export const INDIA_CITIES = ['Mumbai', 'Delhi NCR', 'Bengaluru', 'Hyderabad', 'Chennai', 'Pune', 'Ahmedabad', 'Kolkata', 'Kochi', 'Jaipur', 'Chandigarh', 'Surat', 'Other'];

@@ -19,6 +19,9 @@ export type LeadInput = {
   utm?: Record<string, string>;
   vid?: string;
   hp?: string;
+  intent?: string;
+  company?: string;
+  investorCity?: string;
 };
 
 export function parseLead(raw: unknown): { ok: true; lead: LeadInput } | { ok: false; error: string } {
@@ -51,6 +54,9 @@ export function parseLead(raw: unknown): { ok: true; lead: LeadInput } | { ok: f
       utm,
       vid: str(r.vid, 40),
       hp: str(r.hp, 40),
+      intent: str(r.intent, 60),
+      company: str(r.company, 80).replace(/[<>]/g, ''),
+      investorCity: str(r.investorCity, 40).replace(/[<>]/g, ''),
     },
   };
 }
