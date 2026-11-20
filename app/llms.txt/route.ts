@@ -15,6 +15,14 @@ ${SITE.name} is a private commercial real estate investment advisory based in Du
 - [Privacy Policy](${SITE.url}/privacy)
 - [Terms of Use](${SITE.url}/terms)
 
+## EV investment case (market context, not return projections)
+- Dubai had more than 1,270 public EV charging points by August 2025 (Dubai Media Office / DEWA).
+- Dubai had more than 40,600 electric vehicles by the end of H1 2025 (DEWA).
+- Electric vehicles were about 9% of new UAE vehicle sales in 2025 (Arthur D. Little).
+- Dubai targets EVs at more than 15% of its vehicle fleet by 2030 (Dubai Green Mobility Strategy 2030).
+- Highland Capitals is developing multiple EV charging stations. Phase 1 is in the Jebel Ali industrial corridor. Station locations are indicative and subject to approvals and DEWA licensing.
+- Knight Frank reported 2025 year-on-year industrial rental growth of +39% in Jebel Ali Grade B, +32% in Dubai Industrial City, +25% in Dubai South and +22% in JAFZA Grade A. This is rental growth, not investment yield.
+
 ## What is offered
 ${COMPONENTS.map((c) => `- ${c.key}: ${c.pos}`).join('\n')}
 

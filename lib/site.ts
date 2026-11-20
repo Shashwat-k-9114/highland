@@ -10,11 +10,11 @@ export const SITE = {
   // Set NEXT_PUBLIC_SITE_URL to the live domain. On Vercel we fall back to the project's production domain.
   url: (process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')).replace(/\/$/, ''),
   locale: 'en_AE',
-  title: 'Highland Capitals: Commercial Real Estate Investment Advisory, Dubai',
+  title: 'Highland Capitals: EV Charging Station Investment in Dubai',
   description:
-    'Private commercial real estate advisory in Dubai for founders, CEOs and senior executives: offices, retail, logistics, industrial assets and business parks aligned with the Dubai Economic Agenda D33.',
+    'Invest in a growing network of EV charging stations in Dubai, backed by commercial real estate in Jebel Ali. Request the Phase 1 investment brief. For founders, CEOs and senior executives.',
   shortDescription:
-    'Dubai 2033. Invest in what\'s next. A proposed commercial development bringing together EV infrastructure, industrial facilities, hospitality and business conveniences.',
+    'Dubai is going electric. Own the infrastructure. A network of EV charging stations with industrial facilities, hospitality and business conveniences, aligned with the Dubai Economic Agenda D33.',
   keywords: [
     'Dubai commercial real estate',
     'commercial property investment Dubai',
@@ -28,6 +28,11 @@ export const SITE = {
     'DIFC office investment',
     'Business Bay commercial property',
     'EV charging infrastructure Dubai',
+    'EV charging station investment Dubai',
+    'invest in EV charging stations UAE',
+    'Dubai EV charging business',
+    'Jebel Ali EV charging',
+    'DEWA EV Green Charger',
   ],
   ogImage: '/opengraph-image',
   // Contact: set these in the environment (see .env.example). The fallbacks are placeholders.
@@ -49,6 +54,7 @@ export const telLink = () => `tel:${SITE.phone.replace(/[^\d+]/g, '')}`;
 
 export const NAV = [
   { href: '#top', spy: 'top', label: 'Home' },
+  { href: '#ev', spy: 'ev', label: 'EV' },
   { href: '#about', spy: 'about', label: 'About Us' },
   { href: '#opportunities', spy: 'opportunities', label: 'Investment Opportunities' },
   { href: '#jebel-ali', spy: 'jebel-ali', label: 'Jebel Ali' },
@@ -108,6 +114,8 @@ export const FAQS = [
   { q: 'What is the minimum investment?', a: 'Investment options, pricing and the payment schedule are set out in the project specifications. Request them and your advisor will walk you through each option.' },
   { q: 'Does it qualify me for a UAE Golden Visa?', a: 'Owning property worth AED 2 million or more can make you eligible for the 10-year renewable Golden Visa, including off-plan property under current rules. Final eligibility is decided by UAE authorities.' },
   { q: 'What returns can I expect?', a: 'Returns depend on the asset, location, use and price, and are never guaranteed. Where a commercial use and income model is established, it is shared with the project information so you can judge it yourself.' },
+  { q: 'Why invest in EV charging infrastructure in Dubai?', a: 'Dubai is expanding public charging quickly: DEWA and the Dubai Media Office reported more than 1,270 public charge points in August 2025, and Dubai targets EVs at more than 15% of its vehicle fleet by 2030 under its Green Mobility Strategy. Fleets, taxis and logistics operators need high-power charging near ports and free zones. Highland Capitals is developing multiple stations backed by real estate, with food, rest and business services on site. This is market context, not a projection of returns.' },
+  { q: 'Where will the Highland Capitals EV stations be?', a: 'Phase 1 is in the Jebel Ali industrial corridor, close to Jebel Ali Port, JAFZA and the E11 / E311 roads. Further stations are planned in other Dubai locations. Exact sites are subject to confirmation, approvals and DEWA licensing, and are shared in the investment brief.' },
   { q: 'Do I need to travel to Dubai?', a: 'No. Booking, documentation and transfer can all be handled remotely. Many clients like to visit before deciding, and we arrange private viewings when you do.' },
   { q: 'Is there a fee to enquire?', a: 'None. Project information and the advisory call are free and carry no obligation.' },
 ];
@@ -129,8 +137,8 @@ export const unsplash = (id: string, w = 1600, q = 75) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=${q}`;
 
 export const HERO_REEL = {
-  desktop: ['/videos/hero1', '/videos/hero2', '/videos/hero3'],
-  mobile: ['/videos/hero-m1', '/videos/hero-m2'],
+  desktop: ['/videos/hero1', '/videos/ev1', '/videos/hero2', '/videos/hero3'],
+  mobile: ['/videos/hero-m1', '/videos/ev-m1', '/videos/hero-m2'],
 };
 export const BAND_VIDEO = '/videos/band';
 
@@ -181,3 +189,26 @@ export const INTENTS = [
 ] as const;
 
 export const INDIA_CITIES = ['Mumbai', 'Delhi NCR', 'Bengaluru', 'Hyderabad', 'Chennai', 'Pune', 'Ahmedabad', 'Kolkata', 'Kochi', 'Jaipur', 'Chandigarh', 'Surat', 'Other'];
+
+/* ---------- EV x Dubai ---------- */
+/** Sourced market facts (DEWA / Dubai Media Office, Arthur D. Little). Not project returns. */
+export const EV_FACTS = [
+  { n: 1270, suffix: '+', label: 'Public EV charging points in Dubai by Aug 2025, up sharply year on year.', src: 'Dubai Media Office, Aug 2025' },
+  { n: 40600, suffix: '+', label: 'Electric vehicles on Dubai roads by the end of H1 2025.', src: 'DEWA, 2025' },
+  { n: 9, suffix: '%', label: 'Share of new UAE vehicle sales that were electric in 2025.', src: 'Arthur D. Little' },
+  { n: 15, suffix: '%+', label: 'Dubai target for EVs as a share of its vehicle fleet by 2030.', src: 'Dubai Green Mobility Strategy 2030' },
+] as const;
+
+export const EV_WHY = [
+  { k: 'Policy tailwind', d: "Dubai's Green Mobility Strategy 2030 and Clean Energy Strategy 2050 put electric mobility at the centre of the city's plan." },
+  { k: 'Fleets need depots', d: 'Taxi, delivery and logistics fleets are electrifying. They need high-power charging near ports, free zones and arterial roads.' },
+  { k: 'Dwell time is revenue', d: 'A charging stop takes 20 to 40 minutes. Food, rest pods and convenience retail turn that dwell time into extra income per visit.' },
+  { k: 'Hard-asset base', d: 'Land, buildings and grid connections sit under the station, so the income model is backed by real estate, not only equipment.' },
+] as const;
+
+export const EV_STATIONS = [
+  { k: 'Station 01', t: 'Jebel Ali corridor', d: 'Anchor hub beside the port, JAFZA and the E11 / E311. Fleet and logistics focus.', s: 'Phase 1' },
+  { k: 'Station 02', t: 'Dubai South', d: 'Airport and logistics district. Cargo, ride-hail and visitor traffic.', s: 'Planned' },
+  { k: 'Station 03', t: 'Dubai Industrial City', d: 'Industrial workforce, commercial vehicles and last-mile fleets.', s: 'Planned' },
+  { k: 'Station 04', t: 'Sheikh Zayed Road', d: 'High-visibility spine for intercity and everyday drivers.', s: 'Pipeline' },
+] as const;

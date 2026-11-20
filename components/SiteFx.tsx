@@ -47,9 +47,9 @@ export default function SiteFx() {
       if (!en.isIntersecting) return;
       cio.unobserve(en.target);
       const el = en.target as HTMLElement, to = parseFloat(el.dataset.count || '0'), dec = +(el.dataset.dec || 0);
-      if (reduced) { el.textContent = to.toFixed(dec); return; }
+      if (reduced) { el.textContent = to.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }); return; }
       const t0 = performance.now();
-      const step = (t: number) => { const p = Math.min((t - t0) / 2000, 1); el.textContent = (to * (1 - (1 - p) ** 2)).toFixed(dec); if (p < 1) requestAnimationFrame(step); };
+      const step = (t: number) => { const p = Math.min((t - t0) / 2000, 1); el.textContent = (to * (1 - (1 - p) ** 2)).toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }); if (p < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step);
     }), { threshold: 0.4 });
     $$('[data-count]').forEach((el) => { if (!reduced) el.textContent = (0).toFixed(+(el.dataset.dec || 0)); cio.observe(el); });

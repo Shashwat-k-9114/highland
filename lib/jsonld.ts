@@ -1,7 +1,7 @@
 import { FAQS, LOCATIONS, SITE } from './site';
 
 const ORG = `${SITE.url}/#organization`;
-const SERVICES = ['Commercial offices', 'Retail spaces', 'Warehousing and logistics', 'Industrial assets', 'Business parks'];
+const SERVICES = ['EV charging station', 'Commercial offices', 'Retail spaces', 'Warehousing and logistics', 'Industrial assets', 'Business parks'];
 const hasRealPhone = !!process.env.NEXT_PUBLIC_PHONE;
 
 /** Structured data for search + answer engines (Google, Bing, ChatGPT, Perplexity, Gemini). Mirrors visible page content only. */
@@ -18,10 +18,10 @@ export function homeJsonLd() {
         logo: { '@type': 'ImageObject', url: `${SITE.url}/logo.png`, width: 840, height: 405 },
         image: `${SITE.url}/opengraph-image`,
         description: SITE.description,
-        slogan: "Dubai 2033. Invest in What's Next.",
+        slogan: 'Dubai is going electric. Own the infrastructure.',
         address: { '@type': 'PostalAddress', addressLocality: 'Dubai', addressCountry: 'AE' },
         areaServed: [{ '@type': 'City', name: 'Dubai' }, { '@type': 'Country', name: 'India' }, { '@type': 'Country', name: 'United Arab Emirates' }],
-        knowsAbout: ['Commercial real estate in Dubai', 'Dubai Economic Agenda D33', 'Warehousing and logistics property', 'Industrial property', 'Offshore property investment from India (RBI LRS)'],
+        knowsAbout: ['EV charging infrastructure in Dubai', 'Electric mobility investment', 'Commercial real estate in Dubai', 'Dubai Economic Agenda D33', 'Warehousing and logistics property', 'Industrial property', 'Offshore property investment from India (RBI LRS)'],
         ...(hasRealPhone ? { telephone: SITE.phone } : {}),
         ...(SITE.email ? { email: SITE.email } : {}),
         ...(hasRealPhone || SITE.email ? { contactPoint: [{ '@type': 'ContactPoint', contactType: 'sales', areaServed: ['AE', 'IN'], availableLanguage: ['en'], ...(hasRealPhone ? { telephone: SITE.phone } : {}), ...(SITE.email ? { email: SITE.email } : {}) }] } : {}),

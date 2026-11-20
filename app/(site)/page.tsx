@@ -2,11 +2,12 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import ContactForm from '@/components/ContactForm';
 import FaqList from '@/components/FaqList';
+import HeroForm from '@/components/HeroForm';
 import HeroReel from '@/components/HeroReel';
 import Photo from '@/components/Photo';
 import VideoBg from '@/components/VideoBg';
 import { homeJsonLd, jsonLdString } from '@/lib/jsonld';
-import { BAND_VIDEO, COMPONENTS, FAQS, INDIA_ITEMS, JA_D33_PILLARS, JA_INFRA_NEEDS, JA_LOCATION_FACTS, JA_MOBILITY, JA_RENT_GROWTH, LOCATIONS, PHOTOS, PLAN_ITEMS, STATS, telLink, unsplash, waLink } from '@/lib/site';
+import { BAND_VIDEO, COMPONENTS, EV_FACTS, EV_STATIONS, EV_WHY, FAQS, INDIA_ITEMS, JA_D33_PILLARS, JA_INFRA_NEEDS, JA_LOCATION_FACTS, JA_MOBILITY, JA_RENT_GROWTH, LOCATIONS, PHOTOS, PLAN_ITEMS, STATS, telLink, unsplash, waLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -27,21 +28,57 @@ export default function Home() {
         <div className="hero__frame" id="heroFrame"><HeroReel /><div className="hero__shade" /></div>
         <div className="hero__grid">
           <div className="hero__copy" id="heroContent">
-            <span className="tag h-in">Dubai 2033. Invest in What&apos;s Next.</span>
-            <h1 className="d1 hero__title" id="hero-title"><span className="line"><span>A New-Age Commercial</span></span><span className="line"><span><span className="c">Investment Opportunity.</span></span></span></h1>
-            <p className="lede h-in">Explore a proposed commercial development bringing together EV infrastructure, industrial facilities, hospitality and business conveniences in Dubai.</p>
-          </div>
-          <aside className="hcard h-in" id="heroCard" aria-label="Project enquiry">
-            <div className="hcard__head"><span className="hcard__live"><i />Project enquiry</span>
-              <h2>Explore the <span className="c">development.</span></h2></div>
-            <ul className="henq">
-              {['View investment options.', 'Receive project specifications.', 'Request a consultation.'].map((t) => <li key={t}><i><svg aria-hidden="true"><use href="#i-check" /></svg></i><span>{t}</span></li>)}
+            <span className="tag h-in">EV infrastructure · Dubai 2033</span>
+            <h1 className="d1 hero__title" id="hero-title"><span className="line"><span>Dubai is going electric.</span></span><span className="line"><span><span className="c">Own the infrastructure.</span></span></span></h1>
+            <p className="lede h-in">A commercial development in Dubai led by a growing network of EV charging stations, with industrial facilities, hospitality and business conveniences built around them.</p>
+            <ul className="hhooks h-in">
+              <li><b>1,270+</b><span>public charge points in Dubai, rising fast</span></li>
+              <li><b>15%+</b><span>fleet EV share targeted by 2030</span></li>
+              <li><b>+39%</b><span>Jebel Ali industrial rent growth, 2025</span></li>
             </ul>
-            <button type="button" className="btn btn--gold btn--block hcard__go" data-xp data-magnetic>Request a consultation <Arr /></button>
-            <p className="hcard__note"><span>✓ Free</span><span>✓ No obligation</span><span>✓ 30 seconds</span></p>
+          </div>
+          <aside className="hcard h-in" id="heroCard" aria-label="Request the EV investment brief">
+            <div className="hcard__head"><span className="hcard__live"><i />Phase 1 brief</span>
+              <h2>See the EV station <span className="c">investment case.</span></h2></div>
+            <p>Entry pricing, station economics and timeline. Sent within one business day.</p>
+            <HeroForm />
           </aside>
         </div>
         <div className="hero__scroll" aria-hidden="true" />
+      </section>
+
+      {/* EV x DUBAI */}
+      <section className="pad wrap section-light" id="ev" aria-labelledby="ev-title">
+        <div className="head-row">
+          <div><span className="tag reveal">EV × Dubai</span>
+            <h2 className="d2" id="ev-title" style={{ marginTop: 20 }}><span className="line"><span>The demand is here.</span></span><span className="line"><span className="c">The infrastructure is the opportunity.</span></span></h2></div>
+          <p className="lede reveal">Dubai is adding charge points at record pace to meet policy targets and fleet electrification. Highland Capitals is developing multiple EV stations to serve it, each backed by real estate and on-site income.</p>
+        </div>
+        <div className="stats evfacts">
+          {EV_FACTS.map((f) => (
+            <div className="stat reveal" key={f.label}>
+              <div className="stat__n"><span data-count={f.n} data-dec={0}>{f.n.toLocaleString("en-US")}</span><sup>{f.suffix}</sup></div>
+              <p className="stat__l">{f.label}</p>
+              <p className="small" style={{ marginTop: 8 }}>{f.src}</p>
+            </div>
+          ))}
+        </div>
+        <div className="evstrip reveal">
+          {[['/videos/ev3', 'Fast charging'], ['/videos/ev2', 'Fleet-ready power'], ['/videos/ev4', 'Always-on network']].map(([src, cap]) => (
+            <figure key={src}><div className="vid"><VideoBg src={src} /></div><figcaption>{cap}</figcaption></figure>
+          ))}
+        </div>
+        <div className="ja-cards ja-cards--4" style={{ marginTop: 56 }}>
+          {EV_WHY.map((c, i) => <div className="ja-card reveal" key={c.k}><i>0{i + 1}</i><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+        <h3 className="ja-sub reveal">A network, not a single site.</h3>
+        <div className="evnet">
+          {EV_STATIONS.map((s) => (
+            <div className="evnet__s reveal" key={s.k}><span className="evnet__dot" /><small>{s.k} · {s.s}</small><h4>{s.t}</h4><p>{s.d}</p></div>
+          ))}
+        </div>
+        <p className="small reveal" style={{ marginTop: 18 }}>Station locations are indicative and subject to site confirmation, approvals and DEWA licensing. Sources: DEWA; Dubai Media Office; Arthur D. Little; Dubai Green Mobility Strategy 2030.</p>
+        <div className="reveal" style={{ textAlign: 'center', marginTop: 40 }}><Cta>Get the EV investment brief</Cta></div>
       </section>
 
       {/* ONE DESTINATION */}

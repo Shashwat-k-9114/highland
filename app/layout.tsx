@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Archivo, Gloock } from 'next/font/google';
 import { SITE } from '@/lib/site';
 import './globals.css';
+import './ev.css';
 
 const archivo = Archivo({ subsets: ['latin'], weight: ['300', '400', '500', '600'], display: 'swap', variable: '--font-archivo' });
 const gloock = Gloock({ subsets: ['latin'], weight: '400', display: 'swap', variable: '--font-gloock', fallback: ['Iowan Old Style', 'Georgia', 'serif'] });
@@ -30,10 +31,10 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: SITE.locale,
     url: '/',
-    title: `${SITE.name}: A New-Age Commercial Investment Opportunity in Dubai`,
+    title: `${SITE.name}: EV Charging Station Investment in Dubai`,
     description: SITE.shortDescription,
   },
-  twitter: { card: 'summary_large_image', title: `${SITE.name}: Commercial Real Estate Investment, Dubai`, description: SITE.shortDescription },
+  twitter: { card: 'summary_large_image', title: `${SITE.name}: EV Charging Station Investment in Dubai`, description: SITE.shortDescription },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
     other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } : undefined,
