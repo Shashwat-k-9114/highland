@@ -32,7 +32,7 @@ export const flag = (cc: string) => (/^[A-Z]{2}$/.test(cc) ? String.fromCodePoin
 
 export function toCsv(leads: Lead[]): string {
   const cols: [string, (l: Lead) => string][] = [
-    ['Name', (l) => l.name], ['Email', (l) => l.email], ['Phone', (l) => l.phone], ['Status', (l) => l.status],
+    ['Name', (l) => l.name], ['Budget', (l) => l.budget || ''], ['City of residence', (l) => l.investorCity || ''], ['Email', (l) => l.email], ['Phone', (l) => l.phone], ['Status', (l) => l.status],
     ['Starred', (l) => (l.starred ? 'yes' : '')], ['Source', (l) => l.source], ['Pass no.', (l) => l.passNo],
     ['Submitted', (l) => l.createdAt], ['Submissions', (l) => String(l.submissions)], ['Country', (l) => l.country], ['City', (l) => l.city],
     ['Device', (l) => l.device], ['UTM source', (l) => l.utm.utm_source || ''], ['UTM medium', (l) => l.utm.utm_medium || ''], ['UTM campaign', (l) => l.utm.utm_campaign || ''],

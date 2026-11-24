@@ -1,7 +1,7 @@
-import { FAQS, LOCATIONS, SITE } from './site';
+import { SITE } from './site';
 
 const ORG = `${SITE.url}/#organization`;
-const SERVICES = ['EV charging station', 'Commercial offices', 'Retail spaces', 'Warehousing and logistics', 'Industrial assets', 'Business parks'];
+const SERVICES = ['Commercial real estate in Jebel Ali', 'Industrial and commercial assets', 'EV-ready commercial property'];
 const hasRealPhone = !!process.env.NEXT_PUBLIC_PHONE;
 
 /** Structured data for search + answer engines (Google, Bing, ChatGPT, Perplexity, Gemini). Mirrors visible page content only. */
@@ -18,10 +18,10 @@ export function homeJsonLd() {
         logo: { '@type': 'ImageObject', url: `${SITE.url}/logo.png`, width: 840, height: 405 },
         image: `${SITE.url}/opengraph-image`,
         description: SITE.description,
-        slogan: 'Dubai is going electric. Own the infrastructure.',
+        slogan: 'Commercial Real Estate in Jebel Ali. Built for the Next Phase of Industry.',
         address: { '@type': 'PostalAddress', addressLocality: 'Dubai', addressCountry: 'AE' },
         areaServed: [{ '@type': 'City', name: 'Dubai' }, { '@type': 'Country', name: 'India' }, { '@type': 'Country', name: 'United Arab Emirates' }],
-        knowsAbout: ['EV charging infrastructure in Dubai', 'Electric mobility investment', 'Commercial real estate in Dubai', 'Dubai Economic Agenda D33', 'Warehousing and logistics property', 'Industrial property', 'Offshore property investment from India (RBI LRS)'],
+        knowsAbout: ['Commercial real estate in Jebel Ali, Dubai', 'Industrial and logistics property', 'EV-ready commercial infrastructure'],
         ...(hasRealPhone ? { telephone: SITE.phone } : {}),
         ...(SITE.email ? { email: SITE.email } : {}),
         ...(hasRealPhone || SITE.email ? { contactPoint: [{ '@type': 'ContactPoint', contactType: 'sales', areaServed: ['AE', 'IN'], availableLanguage: ['en'], ...(hasRealPhone ? { telephone: SITE.phone } : {}), ...(SITE.email ? { email: SITE.email } : {}) }] } : {}),
@@ -51,18 +51,7 @@ export function homeJsonLd() {
         isPartOf: { '@id': `${SITE.url}/#website` },
         about: { '@id': ORG },
         primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.url}/opengraph-image` },
-        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.hero .lede', '#faq h3 button', '#faq .faq__a p'] },
-      },
-      {
-        '@type': 'ItemList',
-        '@id': `${SITE.url}/#locations`,
-        name: 'Investment locations in Dubai',
-        itemListElement: LOCATIONS.map((l, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Place', name: l.key, description: `${l.tag}. ${l.prop} ${l.fact}`, containedInPlace: { '@type': 'City', name: 'Dubai' } } })),
-      },
-      {
-        '@type': 'FAQPage',
-        '@id': `${SITE.url}/#faq`,
-        mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.hero .lede', '#opportunity .lede'] },
       },
     ],
   };

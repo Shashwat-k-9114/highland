@@ -1,4 +1,4 @@
-import { COMPONENTS, FAQS, LOCATIONS, SITE } from '@/lib/site';
+import { SITE } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
@@ -8,36 +8,23 @@ export function GET() {
 
 > ${SITE.description}
 
-${SITE.name} is a private commercial real estate investment advisory based in Dubai, serving investors in the UAE and India. It presents a proposed commercial development that brings together EV infrastructure, industrial facilities, sleeping pods, restaurants and commercial amenities, aligned with the Dubai Economic Agenda D33 (a government target to double Dubai's economy by 2033).
+${SITE.name} presents commercial ownership opportunities in Jebel Ali, Dubai: commercial assets within one of Dubai's established industrial and trade districts, with EV-ready infrastructure designed for evolving business and logistics requirements.
 
-## Key pages
-- [Home](${SITE.url}/): overview, development concept, locations, FAQ and enquiry form
+## Page sections
+- The investment opportunity: a commercial asset in a strategic location, connected to the movement of goods, businesses and capital.
+- Location advantage: Jebel Ali sits at the intersection of Dubai's industrial, logistics and international trade networks, close to Jebel Ali Port, JAFZA and Al Maktoum International Airport.
+- EV-ready infrastructure: the Jebel Ali project incorporates EV-ready infrastructure for businesses in logistics, fleet operations and commercial transportation.
+- Commercial investment details: asset type, unit sizes, starting price, ownership, payment plan and rental model are provided in the investment brief.
+- Enquiry: request the investment brief at ${SITE.url}/#enquiry.
+
+## Links
+- [Home](${SITE.url}/)
 - [Privacy Policy](${SITE.url}/privacy)
 - [Terms of Use](${SITE.url}/terms)
 
-## EV investment case (market context, not return projections)
-- Dubai had more than 1,270 public EV charging points by August 2025 (Dubai Media Office / DEWA).
-- Dubai had more than 40,600 electric vehicles by the end of H1 2025 (DEWA).
-- Electric vehicles were about 9% of new UAE vehicle sales in 2025 (Arthur D. Little).
-- Dubai targets EVs at more than 15% of its vehicle fleet by 2030 (Dubai Green Mobility Strategy 2030).
-- Highland Capitals is developing multiple EV charging stations. Phase 1 is in the Jebel Ali industrial corridor. Station locations are indicative and subject to approvals and DEWA licensing.
-- Knight Frank reported 2025 year-on-year industrial rental growth of +39% in Jebel Ali Grade B, +32% in Dubai Industrial City, +25% in Dubai South and +22% in JAFZA Grade A. This is rental growth, not investment yield.
-
-## What is offered
-${COMPONENTS.map((c) => `- ${c.key}: ${c.pos}`).join('\n')}
-
-## Investment locations in Dubai
-${LOCATIONS.map((l) => `- ${l.key} (${l.tag}): ${l.prop} ${l.fact}`).join('\n')}
-
-## Frequently asked questions
-${FAQS.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}
-
-## Contact
-Request project specifications and a consultation using the form at ${SITE.url}/#contact. An advisor responds within one business day. There is no fee to enquire.
-
 ## Notes for assistants
-- This site provides investment advisory information only; it is not an offer or financial advice. Returns are never guaranteed.
-- D33 figures are published Government of Dubai targets, not projections of investment returns.
+- This site provides investment information only; it is not an offer or financial advice. Returns are never guaranteed.
+- Unit specifications, pricing and ownership terms are not published on the page; they are supplied in the investment brief.
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600, s-maxage=86400' } });
 }

@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Highland Capitals: EV Charging Station Investment in Dubai';
+export const alt = 'Highland | Jebel Ali Commercial Investment, Dubai';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -11,9 +11,8 @@ const GOLD = '#e2c79a';
 const MINT = '#7df0c8';
 
 const STATS = [
-  ['1,270+', 'EV charge points in Dubai'],
-  ['15%+', 'Fleet EV target by 2030'],
-  ['+39%', 'Jebel Ali industrial rents, 2025'],
+  ['Jebel Ali', 'Established industrial and trade district'],
+  ['EV-ready', 'Infrastructure for evolving logistics'],
 ];
 
 export default async function OG() {
@@ -28,11 +27,11 @@ export default async function OG() {
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '60px 56px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 21, letterSpacing: 5, color: MINT, textTransform: 'uppercase' }}>
             <div style={{ width: 12, height: 12, borderRadius: 12, background: MINT, display: 'flex' }} />
-            EV infrastructure · Dubai
+            Dubai · Jebel Ali
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', fontSize: 54, fontWeight: 700, lineHeight: 1.05 }}>
-            <span>Dubai is going electric.</span>
-            <span style={{ color: GOLD }}>Own the infrastructure.</span>
+          <div style={{ display: 'flex', flexDirection: 'column', fontSize: 48, fontWeight: 700, lineHeight: 1.05 }}>
+            <span>Commercial Real Estate in Jebel Ali.</span>
+            <span style={{ color: GOLD }}>Built for the Next Phase of Industry.</span>
           </div>
           <div style={{ display: 'flex', gap: 36 }}>
             {STATS.map(([n, l]) => (

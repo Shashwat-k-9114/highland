@@ -29,3 +29,35 @@
 .evfacts{grid-template-columns:repeat(4,1fr)}
 @media (max-width:900px){.evfacts{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.evfacts{grid-template-columns:1fr}}
+
+/* ---------- Jebel Ali commercial investment page ---------- */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero__grid--solo{grid-template-columns:minmax(0,820px)}
+.hero__support{margin-top:14px;font-family:var(--wide);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l)}
+.hero__ctas{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+
+.ja-points{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:clamp(36px,6vh,64px)}
+.ja-points li{position:relative;padding:22px 22px 20px;border:1px solid var(--line);border-radius:18px;background:var(--paper);display:grid;gap:6px;align-content:start}
+.ja-points i{font-style:normal;font-family:var(--wide);font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.ja-points b{font-family:var(--display);font-weight:400;font-size:clamp(20px,1.8vw,26px);line-height:1.25;color:var(--ink)}
+.ja-points span{font-size:13px;color:var(--ink-3)}
+
+.ja-map{position:relative;margin:0;border:1px solid var(--line);border-radius:24px;background:var(--paper);overflow:hidden;padding:0 0 18px}
+.ja-map svg{display:block;width:100%;height:auto;aspect-ratio:4/3}
+.ja-map__sea{fill:rgba(165,129,74,.12)}
+.ja-map__link{stroke:var(--gold);stroke-width:1.5;stroke-dasharray:4 5;fill:none}
+.ja-map__n{fill:var(--paper);stroke:var(--gold);stroke-width:2.5}
+.ja-map__me{fill:var(--gold)}
+.ja-map__pulse{fill:rgba(165,129,74,.18)}
+.ja-map__l{position:absolute;transform:translate(-50%,-50%);padding:5px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-family:var(--wide);font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;margin-top:-26px}
+.ja-map__l--me{background:var(--gold);border-color:var(--gold);color:#fff;margin-top:30px}
+.ja-map figcaption{padding:12px 22px 0;font-size:12px;line-height:1.5;color:var(--ink-3)}
+@media (max-width:560px){.ja-map__l{font-size:9px;padding:4px 7px;letter-spacing:.06em}}
+
+.ja-table{width:100%;margin-top:clamp(32px,5vh,56px);border-collapse:collapse;font-size:clamp(15px,1.2vw,18px)}
+.ja-table th,.ja-table td{text-align:left;padding:20px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.ja-table thead th{font-family:var(--wide);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);border-bottom:1px solid var(--ink-3)}
+.ja-table tbody th{font-family:var(--display);font-weight:400;font-size:clamp(19px,1.7vw,24px);color:var(--ink);width:40%}
+.ja-table td{color:var(--ink)}
+.ja-table__pending{color:var(--ink-3)}
+@media (max-width:560px){.ja-table th,.ja-table td{padding:16px 4px}.ja-table tbody th{width:46%}}

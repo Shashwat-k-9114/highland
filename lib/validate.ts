@@ -22,6 +22,7 @@ export type LeadInput = {
   intent?: string;
   company?: string;
   investorCity?: string;
+  budget?: string;
 };
 
 export function parseLead(raw: unknown): { ok: true; lead: LeadInput } | { ok: false; error: string } {
@@ -33,7 +34,7 @@ export function parseLead(raw: unknown): { ok: true; lead: LeadInput } | { ok: f
   const email = str(r.email, 160).toLowerCase();
   const phone = str(r.phone, 24).replace(/[^\d+]/g, '');
   if (!nameOk(name)) return { ok: false, error: 'Please enter your name' };
-  if (!emailOk(email)) return { ok: false, error: 'Please enter a valid email' };
+  if (email && !emailOk(email)) return { ok: false, error: 'Please enter a valid email' };
   const m = phone.match(/^\+(\d{1,4})(\d{6,14})$/);
   if (!m) return { ok: false, error: 'Please enter a valid phone number' };
   if (r.consent !== true) return { ok: false, error: 'Consent is required' };
@@ -57,6 +58,7 @@ export function parseLead(raw: unknown): { ok: true; lead: LeadInput } | { ok: f
       intent: str(r.intent, 60),
       company: str(r.company, 80).replace(/[<>]/g, ''),
       investorCity: str(r.investorCity, 40).replace(/[<>]/g, ''),
+      budget: str(r.budget, 40).replace(/[<>]/g, ''),
     },
   };
 }

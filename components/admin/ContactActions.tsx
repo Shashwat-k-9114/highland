@@ -35,7 +35,7 @@ export function ContactActions({ lead, onContact, variant = 'compact', channels 
 }) {
   return (
     <div className={`ad-contact ad-contact--${variant}`} onClick={(e) => e.stopPropagation()}>
-      {channels.map((c) => {
+      {channels.filter((c) => c !== 'email' || !!lead.email).map((c) => {
         const m = META[c];
         return (
           <a key={c} className={`ad-contact__b ad-contact__b--${c}`} href={contactHref(lead, c)} {...(c === 'whatsapp' ? { target: '_blank', rel: 'noopener' } : {})}

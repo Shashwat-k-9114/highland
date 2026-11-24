@@ -213,7 +213,7 @@ function Drawer({ lead, onContact, onClose, onPatch, onDelete, notify }: { lead:
 
           <h4>Contact</h4>
           <dl className="ad-dl">
-            <div><dt>Email</dt><dd>{lead.email}<button onClick={() => copy(lead.email)} aria-label="Copy email"><Icon name="copy" size={14} /></button></dd></div>
+            <div><dt>Email</dt><dd>{lead.email || 'Not provided'}{lead.email && <button onClick={() => copy(lead.email)} aria-label="Copy email"><Icon name="copy" size={14} /></button>}</dd></div>
             <div><dt>Phone</dt><dd className="ad-mono">{lead.phone}<button onClick={() => copy(lead.phone)} aria-label="Copy phone"><Icon name="copy" size={14} /></button></dd></div>
             <div><dt>Location</dt><dd>{lead.country ? `${flag(lead.country)} ${lead.city ? lead.city + ', ' : ''}${countryName(lead.country)}` : 'Unknown'}</dd></div>
             <div><dt>Device</dt><dd>{lead.device || 'Unknown'}</dd></div>
@@ -227,7 +227,8 @@ function Drawer({ lead, onContact, onClose, onPatch, onDelete, notify }: { lead:
             <div><dt>Source</dt><dd>{lead.source}</dd></div>
             {lead.intent && <div><dt>Interested in</dt><dd>{lead.intent}</dd></div>}
             {lead.company && <div><dt>Company</dt><dd>{lead.company}</dd></div>}
-            {lead.investorCity && <div><dt>Investor city</dt><dd>{lead.investorCity}</dd></div>}
+            {lead.investorCity && <div><dt>City of residence</dt><dd>{lead.investorCity}</dd></div>}
+            {lead.budget && <div><dt>Investment budget</dt><dd>{lead.budget}</dd></div>}
             <div><dt>Pass no.</dt><dd className="ad-mono">{lead.passNo || '·'}</dd></div>
             {lead.submissions > 1 && <div><dt>Submissions</dt><dd>{lead.submissions} (they enquired again)</dd></div>}
             <div><dt>Page</dt><dd className="ad-trunc" title={lead.page}>{/^https?:\/\//.test(lead.page) ?<a href={lead.page} target="_blank" rel="noopener">{lead.page.replace(/^https?:\/\//, '')}<Icon name="external" size={12} /></a> : '·'}</dd></div>

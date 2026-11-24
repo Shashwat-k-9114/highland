@@ -10,11 +10,11 @@ export const SITE = {
   // Set NEXT_PUBLIC_SITE_URL to the live domain. On Vercel we fall back to the project's production domain.
   url: (process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')).replace(/\/$/, ''),
   locale: 'en_AE',
-  title: 'Highland Capitals: EV Charging Station Investment in Dubai',
+  title: 'Highland | Jebel Ali Commercial Investment, Dubai',
   description:
-    'Invest in a growing network of EV charging stations in Dubai, backed by commercial real estate in Jebel Ali. Request the Phase 1 investment brief. For founders, CEOs and senior executives.',
+    'Commercial real estate in Jebel Ali, Dubai. Invest in commercial assets within one of Dubai’s established industrial and trade districts, with EV-ready infrastructure. Request the investment brief.',
   shortDescription:
-    'Dubai is going electric. Own the infrastructure. A network of EV charging stations with industrial facilities, hospitality and business conveniences, aligned with the Dubai Economic Agenda D33.',
+    'Commercial Real Estate in Jebel Ali. Built for the Next Phase of Industry. Commercial ownership opportunities in Jebel Ali, Dubai, with EV-ready infrastructure.',
   keywords: [
     'Dubai commercial real estate',
     'commercial property investment Dubai',
@@ -54,12 +54,11 @@ export const telLink = () => `tel:${SITE.phone.replace(/[^\d+]/g, '')}`;
 
 export const NAV = [
   { href: '#top', spy: 'top', label: 'Home' },
-  { href: '#ev', spy: 'ev', label: 'EV' },
-  { href: '#about', spy: 'about', label: 'About Us' },
-  { href: '#opportunities', spy: 'opportunities', label: 'Investment Opportunities' },
-  { href: '#jebel-ali', spy: 'jebel-ali', label: 'Jebel Ali' },
-  { href: '#locations', spy: 'locations', label: 'Locations' },
-  { href: '#contact', spy: 'contact', label: 'Contact' },
+  { href: '#opportunity', spy: 'opportunity', label: 'Opportunity' },
+  { href: '#location', spy: 'location', label: 'Location' },
+  { href: '#ev-ready', spy: 'ev-ready', label: 'EV-Ready' },
+  { href: '#investment-details', spy: 'investment-details', label: 'Investment Details' },
+  { href: '#enquiry', spy: 'enquiry', label: 'Enquire' },
 ] as const;
 
 export type Component = { key: string; tag: string; pos: string; photo: string; alt: string; video?: { src: string; mobile?: boolean }; still?: string };
@@ -212,3 +211,34 @@ export const EV_STATIONS = [
   { k: 'Station 03', t: 'Dubai Industrial City', d: 'Industrial workforce, commercial vehicles and last-mile fleets.', s: 'Planned' },
   { k: 'Station 04', t: 'Sheikh Zayed Road', d: 'High-visibility spine for intercity and everyday drivers.', s: 'Pipeline' },
 ] as const;
+
+
+/* ---------- Jebel Ali commercial investment page (copy brief, 24 Nov 2026) ---------- */
+/** Only confirmed facts are shown as fact. Anything still unconfirmed points to the investment brief. */
+export const IN_BRIEF = 'Provided in the investment brief';
+
+export const JA_HIGHLIGHTS = [
+  { k: 'Commercial property in Jebel Ali', pending: false },
+  { k: 'Unit types and sizes', pending: true },
+  { k: 'Starting investment and ownership structure', pending: true },
+];
+
+export const JA_MAP_LABELS = ['Jebel Ali Port', 'JAFZA', 'Al Maktoum International Airport', 'Project Location'];
+
+export const JA_EV_POINTS = [
+  { k: 'EV charging infrastructure / charging provisions', pending: false },
+  { k: 'Electrical capacity and charging specifications', pending: true },
+  { k: 'Fleet or commercial vehicle compatibility', pending: true },
+  { k: 'Owner and tenant access details', pending: true },
+];
+
+export const JA_SNAPSHOT = [
+  { k: 'Asset type', v: '' },
+  { k: 'Unit sizes', v: '' },
+  { k: 'Starting price', v: '' },
+  { k: 'Ownership', v: '' },
+  { k: 'Payment plan', v: '' },
+  { k: 'Rental model', v: '' },
+];
+
+export const BUDGETS = ['Under AED 1M', 'AED 1M to 2M', 'AED 2M to 5M', 'AED 5M to 10M', 'Above AED 10M', 'Prefer to discuss'];
