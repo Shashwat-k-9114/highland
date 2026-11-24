@@ -1,4 +1,4 @@
-import { SITE } from './site';
+import { FAQS, SITE } from './site';
 
 const ORG = `${SITE.url}/#organization`;
 const SERVICES = ['Commercial real estate in Jebel Ali', 'Industrial and commercial assets', 'EV-ready commercial property'];
@@ -52,6 +52,11 @@ export function homeJsonLd() {
         about: { '@id': ORG },
         primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.url}/opengraph-image` },
         speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.hero .lede', '#opportunity .lede'] },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${SITE.url}/#faq`,
+        mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
       },
     ],
   };

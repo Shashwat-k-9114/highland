@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import EnquiryForm from '@/components/EnquiryForm';
+import FaqList from '@/components/FaqList';
+import HeroForm from '@/components/HeroForm';
 import HeroReel from '@/components/HeroReel';
 import Photo from '@/components/Photo';
 import VideoBg from '@/components/VideoBg';
 import { homeJsonLd, jsonLdString } from '@/lib/jsonld';
-import { IN_BRIEF, JA_EV_POINTS, JA_HIGHLIGHTS, JA_MAP_LABELS, JA_SNAPSHOT, PHOTOS, telLink, waLink } from '@/lib/site';
+import { EV_FACTS, EV_STATIONS, EV_WHY, FAQS, IN_BRIEF, JA_D33_PILLARS, JA_EV_POINTS, JA_HIGHLIGHTS, JA_MAP_LABELS, JA_SNAPSHOT, PHOTOS, telLink, waLink } from '@/lib/site';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -23,7 +25,7 @@ export default function Home() {
       {/* 01 HERO */}
       <section className="hero on-dark" id="top" aria-labelledby="hero-title">
         <div className="hero__frame" id="heroFrame"><HeroReel /><div className="hero__shade" /></div>
-        <div className="hero__grid hero__grid--solo">
+        <div className="hero__grid">
           <div className="hero__copy" id="heroContent">
             <span className="tag h-in">DUBAI · JEBEL ALI</span>
             <h1 className="d1 hero__title" id="hero-title"><span className="line"><span>Commercial Real Estate in Jebel Ali.</span></span><span className="line"><span><span className="c">Built for the Next Phase of Industry.</span></span></span></h1>
@@ -31,6 +33,12 @@ export default function Home() {
             <p className="hero__support h-in">Commercial ownership opportunities in Jebel Ali, Dubai.</p>
             <div className="hero__ctas h-in"><Go href="#investment-details">View Investment Details</Go></div>
           </div>
+          <aside className="hcard h-in" id="heroCard" aria-label="Request the EV investment brief">
+            <div className="hcard__head"><span className="hcard__live"><i />Phase 1 brief</span>
+              <h2>See the EV station <span className="c">investment case.</span></h2></div>
+            <p>Entry pricing, station economics and timeline. Sent within one business day.</p>
+            <HeroForm />
+          </aside>
         </div>
         <div className="hero__scroll" aria-hidden="true" />
       </section>
@@ -107,6 +115,48 @@ export default function Home() {
         </ul>
       </section>
 
+      {/* EV x DUBAI */}
+      <section className="pad wrap section-light" id="ev" aria-labelledby="evx-title">
+        <div className="head-row">
+          <div><span className="tag reveal">EV × Dubai</span>
+            <h2 className="d2" id="evx-title" style={{ marginTop: 20 }}><span className="line"><span>The demand is here.</span></span><span className="line"><span className="c">The infrastructure is the opportunity.</span></span></h2></div>
+          <p className="lede reveal">Dubai is adding charge points at record pace to meet policy targets and fleet electrification. Highland Capitals is developing multiple EV stations to serve it, each backed by real estate and on-site income.</p>
+        </div>
+        <div className="stats evfacts">
+          {EV_FACTS.map((f) => (
+            <div className="stat reveal" key={f.label}>
+              <div className="stat__n"><span data-count={f.n} data-dec={0}>{f.n.toLocaleString("en-US")}</span><sup>{f.suffix}</sup></div>
+              <p className="stat__l">{f.label}</p>
+              <p className="small" style={{ marginTop: 8 }}>{f.src}</p>
+            </div>
+          ))}
+        </div>
+        <div className="ja-cards ja-cards--4" style={{ marginTop: 56 }}>
+          {EV_WHY.map((c, i) => <div className="ja-card reveal" key={c.k}><i>0{i + 1}</i><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+        <h3 className="ja-sub reveal">A network, not a single site.</h3>
+        <div className="evnet">
+          {EV_STATIONS.map((s) => (
+            <div className="evnet__s reveal" key={s.k}><span className="evnet__dot" /><small>{s.k} · {s.s}</small><h4>{s.t}</h4><p>{s.d}</p></div>
+          ))}
+        </div>
+        <p className="small reveal" style={{ marginTop: 18 }}>Station locations are indicative and subject to site confirmation, approvals and DEWA licensing. Sources: DEWA; Dubai Media Office; Arthur D. Little; Dubai Green Mobility Strategy 2030.</p>
+        <div className="reveal" style={{ textAlign: 'center', marginTop: 40 }}><Go href="#enquiry">Get the EV investment brief</Go></div>
+      </section>
+
+      {/* D33 CONNECTION */}
+      <section className="pad wrap section-alt" id="d33" aria-labelledby="d33-title">
+        <div className="head-row">
+          <div><span className="tag reveal">Dubai Economic Agenda 2033</span>
+            <h2 className="d2" id="d33-title" style={{ marginTop: 20 }}><span className="line"><span>Dubai is planning its next</span></span><span className="line"><span className="c">decade of economic growth.</span></span></h2></div>
+          <p className="lede reveal">The D33 agenda aims to double the size of Dubai&apos;s economy by 2033 and strengthen its position among the world&apos;s leading global cities. Its priorities include expanding foreign trade, strengthening logistics, developing sustainable manufacturing and attracting investment.</p>
+        </div>
+        <div className="ja-cards ja-cards--4">
+          {JA_D33_PILLARS.map((c, i) => <div className="ja-card reveal" key={c.k}><i>0{i + 1}</i><h4>{c.k}</h4><p>{c.d}</p></div>)}
+        </div>
+        <div className="ja-stat ja-stat--wide reveal"><div className="ja-stat__n"><small>AED</small>25.6<sup>trillion</sup></div><p>D33 target for foreign trade in goods and services over the next decade. An official D33 target, not a forecast of project revenue.</p></div>
+      </section>
+
       {/* 05 COMMERCIAL INVESTMENT DETAILS */}
       <section className="pad wrap section-alt" id="investment-details" aria-labelledby="det-title">
         <div className="head-row">
@@ -127,6 +177,17 @@ export default function Home() {
           </tbody>
         </table>
         <div className="reveal" style={{ marginTop: 34 }}><Go href="#enquiry">Request Investment Brief</Go></div>
+      </section>
+
+      {/* FAQ */}
+      <section className="pad wrap section-light" id="faq" aria-labelledby="faq-title">
+        <div className="faq__grid">
+          <div className="faq__side"><span className="tag reveal">Questions investors ask</span>
+            <h2 className="d2" id="faq-title" style={{ marginTop: 20 }}><span className="line"><span>Clear answers,</span></span><span className="line"><span className="c">before you commit.</span></span></h2>
+            <p className="lede reveal" style={{ marginTop: 20 }}>Anything else on your mind? Your advisor will answer it on the first call.</p>
+            <div className="reveal" style={{ marginTop: 28 }}><Go href="#enquiry">Speak to an advisor</Go></div></div>
+          <FaqList items={FAQS} />
+        </div>
       </section>
 
       {/* 06 FINAL ENQUIRY */}
