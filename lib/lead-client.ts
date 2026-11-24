@@ -10,7 +10,7 @@ export async function submitLead(f: LeadForm, source: string, passNo: string, hp
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      name: f.name.trim(), email: f.email.trim(), phone: f.cc + f.phone.replace(/\D/g, ''), consent: f.consent, intent: f.intent, company: f.company?.trim(), investorCity: f.investorCity, budget: f.budget,
+      name: f.name.trim(), email: f.email.trim(), phone: (f.cc || '+') + f.phone.replace(/\D/g, ''), consent: f.consent, intent: f.intent, company: f.company?.trim(), investorCity: f.investorCity, budget: f.budget,
       passNo: 'HC-' + passNo, source, page: location.href, referrer: document.referrer, utm: utmParams(), vid: visitorId(), sid: sessionId(), hp,
     }),
   });

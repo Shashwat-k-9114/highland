@@ -14,7 +14,6 @@ export default function HeroForm({ source = 'Hero form' }: { source?: string }) 
   const [msg, setMsg] = useState('');
   const started = useRef(false);
   const hp = useRef<HTMLInputElement>(null);
-  const cc = '+971';
 
   const set = (k: keyof typeof v, val: string | boolean) => {
     if (!started.current) { started.current = true; track('form_start', { form: 'hero' }); }
@@ -27,14 +26,16 @@ export default function HeroForm({ source = 'Hero form' }: { source?: string }) 
     e.preventDefault();
     if (busy) return;
     const digits = v.phone.replace(/\D/g, '');
-    const next = { name: !nameOk(v.name), email: !emailOk(v.email), phone: !(v.phone.startsWith('+') ? v.phone.replace(/\D/g, '').length >= 8 : phoneOk(cc, digits)), consent: !v.consent };
+    const typed = v.phone.trim().startsWith('+');
+    const cc = typed ? '' : /^[6-9]\d{9}$/.test(digits) ? '+91' : '+971';
+    const next = { name: !nameOk(v.name), email: !emailOk(v.email), phone: !(typed ? digits.length >= 8 && digits.length <= 15 : phoneOk(cc, digits)), consent: !v.consent };
     setErr(next);
     if (Object.values(next).some(Boolean)) return;
     setBusy(true); setMsg('');
     try {
-      const full = v.phone.trim().startsWith('+') ? '+' + digits : cc + digits;
+      const full = typed ? '+' + digits : cc + digits;
       const passNo = newPassNo();
-      await submitLead({ name: v.name, email: v.email, cc: '', phone: full, consent: true, intent: 'Request investment details' }, source, passNo, hp.current?.value);
+      await submitLead({ name: v.name, email: v.email, cc: '+', phone: full, consent: true, intent: 'Request investment details' }, source, passNo, hp.current?.value);
       window.__hcLead = { name: v.name.trim(), phone: full, email: v.email.trim(), passNo };
       track('generate_lead', { source: 'hero_form' });
       openLead({ start: 'done' });
